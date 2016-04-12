@@ -9,12 +9,28 @@ function mapStateToProps(state, props) {
   });
 }
 
+function actionIncrement() {
+  return {
+    type: 'INCREMENT'
+  };
+}
+
 const App = connect(mapStateToProps) (
   class App extends Component {
+    // Enviar actions al store
+    handleSuma() {
+      this.props.dispatch(
+        actionIncrement()
+      );
+    }
+
     render() {
       return (
         <div>
-          { this.props.count }
+          <h1> { this.props.count } </h1>
+          <button onClick={ this.handleSuma.bind(this) }>
+            SUMAR
+          </button>
         </div>
       );
     }
