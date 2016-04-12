@@ -14,6 +14,11 @@ function actionIncrement() {
     type: 'INCREMENT'
   };
 }
+function actionDecrement() {
+  return {
+    type: 'DECREMENT'
+  };
+}
 
 const App = connect(mapStateToProps) (
   class App extends Component {
@@ -23,10 +28,18 @@ const App = connect(mapStateToProps) (
         actionIncrement()
       );
     }
+    handleResta() {
+      this.props.dispatch(
+        actionDecrement()
+      );
+    }
 
     render() {
       return (
         <div>
+        <button onClick={ this.handleResta.bind(this) }>
+          RESTAR
+        </button>
           <h1> { this.props.count } </h1>
           <button onClick={ this.handleSuma.bind(this) }>
             SUMAR
@@ -42,6 +55,8 @@ function reducer(state = 0, action) {
   switch (action.type) {
     case 'INCREMENT':
       return state + 1;
+    case 'DECREMENT':
+      return state - 1;
     default:
       return state;
   }
