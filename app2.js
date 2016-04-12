@@ -2,18 +2,26 @@ import {
   createStore,
   applyMiddleware
 } from 'redux';
-import {
-  Provider,
-  connect
-} from 'react-redux';
-import React, { Component } from 'react';
 
-const App = connect() {
-  class App extends Component {
-    render() {
-      return (
-        <div> { this.props.count } </div>
-      );
-    }
+function reducer(state=0, action={}){
+  switch (action.type){
+    case 'PLUS':
+      return state + 1;
+    default:
+      return state;
   }
 }
+
+const store = createStore(reducer, 0);
+
+store.subscribe(() => {
+  document.write(
+    JSON.stringify(store.getState())
+  );
+});
+
+const action = {
+  type : 'PLUS'
+};
+
+store.dispatch(action);
